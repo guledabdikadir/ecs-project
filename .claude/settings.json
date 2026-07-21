@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(terraform validate *)",
+      "Bash(terraform plan *)",
+      "Bash(aws ecs *)",
+      "Bash(aws ecr *)",
+      "Bash(aws logs *)",
+      "Bash(terraform apply *)"
+    ]
+  }
+}
