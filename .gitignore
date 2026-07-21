@@ -1,18 +1,8 @@
-# Terraform
 **/.terraform/
 *.tfstate
 *.tfstate.backup
 *.tfvars
-
-# Node
 node_modules/
 build/
-
-# Python
-venv/
-__pycache__/
-*.pyc
-
-# Misc
 .env
 .DS_Store
