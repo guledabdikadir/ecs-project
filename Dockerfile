@@ -9,6 +9,8 @@ RUN yarn install
 
 COPY app/ .
 
+ENV DISABLE_ESLINT_PLUGIN=true
+
 RUN yarn build
 
 # Stage 2 - Runtime
