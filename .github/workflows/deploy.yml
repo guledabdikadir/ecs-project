@@ -33,7 +33,7 @@ jobs:
         working-directory: infra
         run: terraform apply -auto-approve -target=module.acm.aws_acm_certificate.main
 
-      - name: Terraform Apply ECR only
+      - name: Terraform Apply ECR
         working-directory: infra
         run: terraform apply -auto-approve -target=module.ecr
 
