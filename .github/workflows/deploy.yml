@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -22,24 +22,24 @@ jobs:
           role-to-assume: arn:aws:iam::099986853222:role/github-actions-role
           aws-region: eu-west-2
 
-      - name: Login to ECR
-        uses: aws-actions/amazon-ecr-login@v2
-
-      - name: Build and push image
-        run: |
-          docker build --platform linux/amd64 -t ${{ secrets.ECR_URL }}:latest .
-          docker push ${{ secrets.ECR_URL }}:latest
-
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v2
 
       - name: Terraform Init
         working-directory: infra
         run: terraform init
 
-      - name: Terraform Plan
+      - name: Terraform Apply ECR only
         working-directory: infra
-        run: terraform plan
+        run: terraform apply -auto-approve -target=module.ecr
+
+      - name: Login to ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build and push image
+        run: |
+          docker build --platform linux/amd64 -t ${{ secrets.ECR_URL }}:latest .
+          docker push ${{ secrets.ECR_URL }}:latest
 
       - name: Terraform Apply
         working-directory: infra
